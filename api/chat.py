@@ -14,7 +14,8 @@ CORS(app)
 api_key = os.getenv("GOOGLE_API_KEY")
 if api_key:
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-pro')
+    # Use the latest Gemini model name
+    model = genai.GenerativeModel('gemini-1.5-flash')
 else:
     model = None
 
@@ -108,7 +109,7 @@ Provide a detailed, helpful response:"""
             return jsonify({
                 'success': True,
                 'response': response.text,
-                'model': 'gemini-pro'
+                'model': 'gemini-1.5-flash'
             })
         else:
             return jsonify({
@@ -225,7 +226,7 @@ if __name__ == '__main__':
         print("🔗 Get your key at: https://aistudio.google.com/app/apikey")
     else:
         print("✅ API Key: Configured")
-        print("🤖 Model: Google Gemini Pro")
+        print("🤖 Model: Google Gemini 1.5 Flash")
         print("🌐 Server: Running on http://localhost:5000")
     
     print("="*70 + "\n")
