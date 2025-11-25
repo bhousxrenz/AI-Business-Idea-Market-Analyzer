@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
-import google.generativeai as genai
+from google import genai
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -11,13 +11,15 @@ app = Flask(__name__, static_folder='../frontend')
 CORS(app)
 
 # Configure Google Gemini
-api_key = os.environ.get("GOOGLE_API_KEY")
-if api_key:
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-1.5-flash')
-else:
-    print("⚠️  WARNING: GOOGLE_API_KEY not found!")
-    model = None
+client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
+
+def generate(prompt):
+    response = client.models.generate_text(
+        model="gemini-1.5-flash",
+        prompt=prompt,
+    )
+    return response.text
+
 
 # Serve frontend files
 @app.route('/')
