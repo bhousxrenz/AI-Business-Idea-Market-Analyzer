@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-powered business idea generator and market analyzer">
+    <meta name="author" content="bhousxrenz">
+    <title>AI Business Analyzer - Generate Ideas & Analyze Markets</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <button class="new-chat-btn" onclick="startNewChat()" title="Start a new conversation">
+                    <span class="icon">➕</span>
+                    <span>New Chat</span>
+                </button>
+            </div>
+            
+            <div class="chat-history">
+                <div class="history-label">CHAT HISTORY</div>
+                <div id="chatHistoryList" class="chat-list">
+                    <!-- Chat history items will be inserted here -->
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <button class="upload-btn" onclick="document.getElementById('fileInput').click()" title="Upload business data file">
+                    <span class="icon">📎</span>
+                    <span>Upload File</span>
+                </button>
+                <input type="file" id="fileInput" accept=".txt,.csv,.json" style="display: none;" onchange="handleFileUpload(event)">
+                
+                <div class="sidebar-info">
+                    <small>Supports: CSV, TXT, JSON</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Chat Area -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <button class="menu-btn" onclick="toggleSidebar()" title="Toggle sidebar">
+                    <span>☰</span>
+                </button>
+                <div class="header-title">
+                    <span class="header-icon">📊</span>
+                    <h1>AI Business Analyzer</h1>
+                </div>
+                <div class="header-status" id="apiStatus">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Connected</span>
+                </div>
+            </div>
+
+            <!-- Messages Container -->
+            <div class="messages-container" id="messagesContainer">
+                <div class="welcome-message">
+                    <div class="message assistant-message">
+                        <div class="message-avatar">💡</div>
+                        <div class="message-content">
+                            <h2>Hello! I'm your AI Business Analyzer.</h2>
+                            <p>I can help you with:</p>
+                            <ul class="feature-list">
+                                <li>💡 Generate unique business ideas</li>
+                                <li>📊 Analyze market potential</li>
+                                <li>🎯 Evaluate competitors</li>
+                                <li>💰 Create financial projections</li>
+                                <li>📈 Develop marketing strategies</li>
+                                <li>📁 Analyze your business data</li>
+                            </ul>
+                            <p class="cta-text">What would you like to explore today?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="messageInput" 
+                        placeholder="Ask about business ideas, market analysis, or upload data..."
+                        onkeypress="handleKeyPress(event)"
+                        autocomplete="off"
+                    >
+                    <button class="send-btn" onclick="sendMessage()" id="sendBtn" title="Send message">
+                        <span>➤</span>
+                    </button>
+                </div>
+                <div class="disclaimer">
+                    <span>AI Business Analyzer can make mistakes. Verify important information.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading overlay for file uploads -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner"></div>
+        <p>Analyzing your data...</p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
