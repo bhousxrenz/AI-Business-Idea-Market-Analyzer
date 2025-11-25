@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
-from google import genai
+import google.generativeai as genai
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -11,14 +11,12 @@ app = Flask(__name__, static_folder='../frontend')
 CORS(app)
 
 # Configure Google Gemini
-client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
-
-def generate(prompt):
-    response = client.models.generate_text(
-        model="gemini-1.5-flash",
-        prompt=prompt,
-    )
-    return response.text
+api_key = os.getenv("GOOGLE_API_KEY")
+if api_key:
+    genai.configure(api_key=api_key)
+    model = genai.GenerativeModel('gemini-pro')
+else:
+    model = None
 
 
 # Serve frontend files
@@ -103,7 +101,7 @@ Provide a detailed, helpful response:"""
             question=message
         )
         
-        # Generate response
+        # Generate response using correct Gemini API
         response = model.generate_content(full_prompt)
         
         if response and response.text:
