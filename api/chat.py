@@ -14,7 +14,7 @@ CORS(app)
 api_key = os.environ.get("GOOGLE_API_KEY")
 if api_key:
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-pro')
+    model: "gemini-1.5-flash"
 else:
     print("⚠️  WARNING: GOOGLE_API_KEY not found!")
     model = None
