@@ -153,5 +153,3 @@ License
 This project is provided as-is for educational and commercial use. See the repository for license details.
 
 ---
-
-Note: AI Business Analyzer can make mistakes. Always verify important business information and financial projections with qualified professionals.
